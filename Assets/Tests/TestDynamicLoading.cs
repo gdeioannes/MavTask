@@ -14,7 +14,14 @@ public class TestDynamicLoading
     //set : priority loading cue
     //get : set treads and load 3d files
 
-
+    [Test]
+    public void TestGetFileStructure()
+    {
+        NetworkController net = new NetworkController();
+        bool response = net.parseData("");
+        // Use the Assert class to test conditions
+        Assert.AreEqual(response, false);
+    }
 
 
     // A Test behaves as an ordinary method

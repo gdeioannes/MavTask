@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class NetworkController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void requestDataFromServer()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void getDataFromServer()
     {
-        
+        string data = "";
+    }
+
+    public bool parseData(string data)
+    {
+        return false;
     }
 }
