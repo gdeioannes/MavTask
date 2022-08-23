@@ -8,12 +8,12 @@ public class API : MonoBehaviour
 
     const string BundleFolder = "http://sallymolly.com/mav/AssetBundles/";
 
-    public void GetBundleObject(string assetName, UnityAction<GameObject> callback, Transform bundleParent, Vector3 position, Quaternion rotation, Vector3 scale)
+    public void GetBundleObject(string assetName, UnityAction<GameObject> callback, Transform bundleParent, Vector3 position, Quaternion rotation, Vector3 scale, GameObject placeHolder)
     {
-        StartCoroutine(GetDisplayBundleRoutine(assetName, callback, bundleParent,position,rotation,scale));
+        StartCoroutine(GetDisplayBundleRoutine(assetName, callback, bundleParent,position,rotation,scale,placeHolder));
     }
 
-    IEnumerator GetDisplayBundleRoutine(string assetName, UnityAction<GameObject> callback, Transform bundleParent, Vector3 position, Quaternion rotation, Vector3 scale)
+    IEnumerator GetDisplayBundleRoutine(string assetName, UnityAction<GameObject> callback, Transform bundleParent, Vector3 position, Quaternion rotation, Vector3 scale, GameObject placeHolder)
     {
         Debug.Log("BEGIN");
         assetName = assetName.ToLower();
@@ -37,6 +37,7 @@ public class API : MonoBehaviour
                 string rootAssetPath = bundle.GetAllAssetNames()[0];
                 GameObject assetObject = Instantiate(bundle.LoadAsset(rootAssetPath) as GameObject, position,rotation,bundleParent);
                 assetObject.transform.localScale = scale;
+                Destroy(placeHolder);
                 bundle.Unload(false);
                 callback(assetObject);
             }

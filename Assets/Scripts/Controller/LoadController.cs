@@ -19,15 +19,16 @@ public class LoadController : MonoBehaviour
 
     public void setObjects(string folder,List<ExpoPiece> list)
     {
-
+        GameObject placeHolder;
         //GameObject newPiece;
-        foreach(ExpoPiece expoPiece in list)
+        foreach (ExpoPiece expoPiece in list)
         {
             Vector3 position = ParseVector3(expoPiece.position);
             Quaternion rotation = ParseQuaternion(expoPiece.rotation);
             Vector3 scale = ParseVector3(expoPiece.scale);
-
-            loadAssetBundle.LoadContent(expoPiece.assetBundleName, objectContainer.transform,position,rotation,scale);
+            placeHolder = Instantiate(Resources.Load("Prefab/PlaceHolder"),position ,rotation ,objectContainer.transform) as GameObject;
+            placeHolder.transform.localScale = scale;
+            loadAssetBundle.LoadContent(expoPiece.assetBundleName, objectContainer.transform,position,rotation,scale, placeHolder);
             //newPiece = Instantiate(Resources.Load(folder + "/" + expoPiece.assetBundleName), ParseVector3(expoPiece.position),ParseQuaternion(expoPiece.rotation), objectContainer.transform) as GameObject;
             //newPiece.transform.localScale = (ParseVector3(expoPiece.scale));
         }
