@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LoadController : MonoBehaviour
 {
+    
     public static LoadController instance;
     public GameObject objectContainer;
 
