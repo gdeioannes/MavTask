@@ -1,0 +1,25 @@
+ManifestFileVersion: 0
+CRC: 2274156023
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: venus_milo_1
+      Dependencies: {}
+    Info_1:
+      Name: venus_milo_2
+      Dependencies: {}
+    Info_2:
+      Name: venus_milo_3
+      Dependencies: {}
+    Info_3:
+      Name: venus_milo_5
+      Dependencies: {}
+    Info_4:
+      Name: venus_milo_4
+      Dependencies: {}
+    Info_5:
+      Name: venus_milo_6
+      Dependencies: {}
+    Info_6:
+      Name: venus_milo_7
+      Dependencies: {}

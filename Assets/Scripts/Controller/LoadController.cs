@@ -7,6 +7,7 @@ public class LoadController : MonoBehaviour
     
     public static LoadController instance;
     public GameObject objectContainer;
+    public LoadAssetBundle loadAssetBundle;
 
     void Awake()
     {
@@ -19,12 +20,16 @@ public class LoadController : MonoBehaviour
     public void setObjects(string folder,List<ExpoPiece> list)
     {
 
-        GameObject newPiece;
+        //GameObject newPiece;
         foreach(ExpoPiece expoPiece in list)
         {
+            Vector3 position = ParseVector3(expoPiece.position);
+            Quaternion rotation = ParseQuaternion(expoPiece.rotation);
+            Vector3 scale = ParseVector3(expoPiece.scale);
 
-            newPiece = Instantiate(Resources.Load(folder + "/" + expoPiece.assetBundleName), ParseVector3(expoPiece.position),ParseQuaternion(expoPiece.rotation), objectContainer.transform) as GameObject;
-            newPiece.transform.localScale = (ParseVector3(expoPiece.scale));
+            loadAssetBundle.LoadContent(expoPiece.assetBundleName, objectContainer.transform,position,rotation,scale);
+            //newPiece = Instantiate(Resources.Load(folder + "/" + expoPiece.assetBundleName), ParseVector3(expoPiece.position),ParseQuaternion(expoPiece.rotation), objectContainer.transform) as GameObject;
+            //newPiece.transform.localScale = (ParseVector3(expoPiece.scale));
         }
     }
 

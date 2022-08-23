@@ -1,0 +1,29 @@
+ManifestFileVersion: 0
+CRC: 3890735556
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2a8d16d635d0dbd282760a5452a302a2
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 40b4a73a1f7eba55ffa9af911f889766
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources/3DObjects/Venus_Milo_4.blend
+Dependencies: []
