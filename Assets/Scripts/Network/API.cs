@@ -6,18 +6,27 @@ using UnityEngine.Networking;
 public class API : MonoBehaviour
 {
 
+    public static API instance;
+
     const string BundleFolder = "http://sallymolly.com/mav/AssetBundles/";
 
-    public void GetBundleObject(string assetName, UnityAction<GameObject> callback, Transform bundleParent, Vector3 position, Quaternion rotation, Vector3 scale, GameObject placeHolder)
+    void Awake()
     {
-        StartCoroutine(GetDisplayBundleRoutine(assetName, callback, bundleParent,position,rotation,scale,placeHolder));
+        if (instance==null)
+        {
+            instance = this;
+        }
     }
 
-    IEnumerator GetDisplayBundleRoutine(string assetName, UnityAction<GameObject> callback, Transform bundleParent, Vector3 position, Quaternion rotation, Vector3 scale, GameObject placeHolder)
+    public void GetBundleObject(ExpoPieceEntity expoEntity, UnityAction<ExpoPieceEntity> callback, Transform bundleParent)
     {
-        Debug.Log("BEGIN");
-        assetName = assetName.ToLower();
-        string bundleURL = BundleFolder + assetName;
+        StartCoroutine(GetDisplayBundleRoutine(expoEntity, callback, bundleParent));
+    }
+
+    IEnumerator GetDisplayBundleRoutine(ExpoPieceEntity expoEntity, UnityAction<ExpoPieceEntity> callback, Transform bundleParent)
+    {
+        
+        string bundleURL = BundleFolder + expoEntity.EntityName.ToLower();
 
         Debug.Log("Requesting bundle at " + bundleURL);
 
@@ -35,11 +44,12 @@ public class API : MonoBehaviour
             if (bundle != null)
             {
                 string rootAssetPath = bundle.GetAllAssetNames()[0];
-                GameObject assetObject = Instantiate(bundle.LoadAsset(rootAssetPath) as GameObject, position,rotation,bundleParent);
-                assetObject.transform.localScale = scale;
-                Destroy(placeHolder);
+                Transform expoPieceTransform = expoEntity.PieceGameObject.transform;
+                GameObject assetObject = Instantiate(bundle.LoadAsset(rootAssetPath) as GameObject, expoPieceTransform.position, expoPieceTransform.rotation, bundleParent);
+                assetObject.transform.localScale = expoPieceTransform.localScale;
+                expoEntity.PieceGameObject = assetObject;
                 bundle.Unload(false);
-                callback(assetObject);
+                callback(expoEntity);
             }
             else
             {

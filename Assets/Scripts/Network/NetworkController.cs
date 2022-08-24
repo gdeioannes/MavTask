@@ -2,31 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
+using System;
 
 public class NetworkController : MonoBehaviour
 {
     private TextAsset asset;
-
+    public string expoID = "Expo_ID_0001";
     void Start()
     {
-        requestDataFromServer();
+        requestDataFromServer(expoID);
     }
 
-    public void requestDataFromServer()
+    //Change this for a request to a server and retrive data
+    public void requestDataFromServer(string id)
     {
-        asset = (TextAsset)Resources.Load("Expo_ID_0001/SceneStructure");
-        Debug.Log(asset);
-        parseExpoSpaceData(asset.ToString());
+        try { 
+            asset = (TextAsset)Resources.Load(id + "/ExpoDataModel");
+            parseExpoSpaceData(asset.ToString());
+        }catch(Exception e)
+        {
+            Debug.LogError(e);
+            throw new Exception("Error parse ExpoModel");
+        }
     }
 
-    public void getDataFromServer()
+    public void parseExpoSpaceData(string data)
     {
-        string data = "";
+        try { 
+            ExpoDataModel expoDataModel = JsonConvert.DeserializeObject<ExpoDataModel>(data);
+            addDataToObjectLoaderController(expoDataModel);
+        }
+        catch(Exception e)
+        {
+            Debug.LogError(e);
+            throw new Exception("Error parse ExpoModel ");
+        }
+        
     }
 
-    void parseExpoSpaceData(string data)
+    void addDataToObjectLoaderController(ExpoDataModel expoStructureModel)
     {
-        SceneStructureModel sceneStructureModel = JsonConvert.DeserializeObject<SceneStructureModel>(data);
-        LoadController.instance.setObjects("3DObjects", sceneStructureModel.expoPiecesList);
+        LoadController.instance.EceneStructureModel = expoStructureModel;
     }
+
 }

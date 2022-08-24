@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEditor;
 
-[CustomEditor(typeof(SceneStructure))]
+[CustomEditor(typeof(ExpoDataGenerator))]
 public class SceneStructureGenerator : Editor
 {
     public override void OnInspectorGUI()
@@ -10,10 +10,10 @@ public class SceneStructureGenerator : Editor
         DrawDefaultInspector();
 
 
-        SceneStructure sceneStructure = (SceneStructure)target;
-        if(GUILayout.Button("Create Strcuture File"))
+        ExpoDataGenerator expoDataGenerator = (ExpoDataGenerator)target;
+        if(GUILayout.Button("Generate Expo Structure File"))
         {
-            sceneStructure.generateStructureFile();
+            expoDataGenerator.generateExpoModeFile();
         }
     }
 }

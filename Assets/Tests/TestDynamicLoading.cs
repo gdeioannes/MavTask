@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
+
 
 public class TestDynamicLoading
 {
@@ -15,12 +17,36 @@ public class TestDynamicLoading
     //get : set treads and load 3d files
 
     [Test]
-    public void TestGetFileStructure()
+    public void TestGetFileStructureWrongAddress()
     {
-        //NetworkController net = new NetworkController();
-        //bool response = net.parseData("");
-        // Use the Assert class to test conditions
-        //Assert.AreEqual(response, false);
+        GameObject newGameObject = new GameObject();
+        NetworkController networkController = newGameObject.AddComponent<NetworkController>();
+        
+        Assert.That(() => networkController.requestDataFromServer("WRONG_ADDRESS"),
+                 Throws.TypeOf<Exception>());
+    }
+
+    public void TestGetFileStructureData()
+    {
+        GameObject newGameObject = new GameObject();
+        NetworkController networkController = newGameObject.AddComponent<NetworkController>();
+
+        Assert.That(() => networkController.requestDataFromServer("WRONG_ADDRESS"),
+                 Throws.TypeOf<Exception>());
+    }
+
+    [Test]
+    public void TestParseFileStructure()
+    {
+        GameObject newGameObject = new GameObject();
+        NetworkController networkController=newGameObject.AddComponent<NetworkController>();
+        string data = " ";
+
+
+        Assert.That(() => networkController.parseExpoSpaceData(data),
+                  Throws.TypeOf<Exception>());
+
+        
     }
 
 
