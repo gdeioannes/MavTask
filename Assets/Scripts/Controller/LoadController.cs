@@ -33,6 +33,7 @@ public class LoadController : MonoBehaviour
 
     public void setExpoObjects()
     {
+        Debug.Log("Set Object:"+ expoDataModel.expoPiecesList.Count);
         foreach (ExpoPiece expoPiece in expoDataModel.expoPiecesList)
         {
             //Parse Data from expoObjects

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 using System;
@@ -44,9 +42,9 @@ public class NetworkController : MonoBehaviour
 
     void addDataToObjectLoaderController(ExpoDataModel expoStructureModel)
     {
-        if (LoadController.instance==null) { 
-            LoadController.instance.EceneStructureModel = expoStructureModel;
-        }
+        
+        LoadController.instance.EceneStructureModel = expoStructureModel;
+        
     }
 
     public int returnNum(int num)
