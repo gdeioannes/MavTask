@@ -26,7 +26,6 @@ public class NetworkController : MonoBehaviour
         }catch(Exception e)
         {
             Debug.LogError(e);
-            throw new Exception("Error parse ExpoModel");
         }
     }
 
@@ -39,14 +38,15 @@ public class NetworkController : MonoBehaviour
         catch(Exception e)
         {
             Debug.LogError(e);
-            throw new Exception("Error parse ExpoModel ");
         }
         
     }
 
     void addDataToObjectLoaderController(ExpoDataModel expoStructureModel)
     {
-        LoadController.instance.EceneStructureModel = expoStructureModel;
+        if (LoadController.instance==null) { 
+            LoadController.instance.EceneStructureModel = expoStructureModel;
+        }
     }
 
     public int returnNum(int num)

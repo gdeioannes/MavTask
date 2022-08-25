@@ -33,7 +33,6 @@ public class LoadController : MonoBehaviour
 
     public void setExpoObjects()
     {
-        
         foreach (ExpoPiece expoPiece in expoDataModel.expoPiecesList)
         {
             //Parse Data from expoObjects
@@ -51,7 +50,6 @@ public class LoadController : MonoBehaviour
 
             //Create Expo entity and added to the list
             loadExpoEntityList.Add(new ExpoPieceEntity(expoPiece.assetBundleName,newObj, placeHolder));
-            
         }
 
         sortObjectByDistance();
