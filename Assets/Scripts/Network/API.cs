@@ -47,6 +47,7 @@ public class API : MonoBehaviour
                 Transform expoPieceTransform = expoEntity.PieceGameObject.transform;
                 GameObject assetObject = Instantiate(bundle.LoadAsset(rootAssetPath) as GameObject, expoPieceTransform.position, expoPieceTransform.rotation, bundleParent);
                 assetObject.transform.localScale = expoPieceTransform.localScale;
+                Destroy(expoEntity.PieceGameObject);
                 expoEntity.PieceGameObject = assetObject;
                 bundle.Unload(false);
                 callback(expoEntity);

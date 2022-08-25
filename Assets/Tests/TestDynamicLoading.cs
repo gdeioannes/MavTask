@@ -9,7 +9,7 @@ using UnityEngine.TestTools;
 public class TestDynamicLoading
 {
     //get : file with scene structure(hierarchy and models info)
-    //get : expo space file
+    //get : expo space file exist
     //set : set file and initial scene settings.
     //set : spawn user in the scene.
     //*get : place holders data and set them in the scene.
@@ -21,50 +21,18 @@ public class TestDynamicLoading
     {
         GameObject newGameObject = new GameObject();
         NetworkController networkController = newGameObject.AddComponent<NetworkController>();
-        
-        Assert.That(() => networkController.requestDataFromServer("WRONG_ADDRESS"),
-                 Throws.TypeOf<Exception>());
-    }
+        networkController.requestDataFromServer("Expo_ID_0001");
+        networkController.returnNum(5);
 
-    public void TestGetFileStructureData()
-    {
-        GameObject newGameObject = new GameObject();
-        NetworkController networkController = newGameObject.AddComponent<NetworkController>();
-
-        Assert.That(() => networkController.requestDataFromServer("WRONG_ADDRESS"),
-                 Throws.TypeOf<Exception>());
-    }
-
-    [Test]
-    public void TestParseFileStructure()
-    {
-        GameObject newGameObject = new GameObject();
-        NetworkController networkController=newGameObject.AddComponent<NetworkController>();
-        string data = " ";
+        Assert.AreEqual(5,networkController.returnNum(5));
 
 
-        Assert.That(() => networkController.parseExpoSpaceData(data),
-                  Throws.TypeOf<Exception>());
+        Assert.AreEqual(5, networkController.returnNum(5));
 
-        
-    }
+        //Assert.IsNull(networkController.EpoDataModelTextAsset);
 
+        //Assert.That(() => networkController.requestDataFromServer("WRONG_ADDRESS"),
+        //         Throws.TypeOf<Exception>());
 
-    // A Test behaves as an ordinary method
-    [Test]
-    public void TestDynamicLoadingSimplePasses()
-    {
-        // Use the Assert class to test conditions
-        Assert.AreEqual("hello","hello");
-    }
-
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
-    [UnityTest]
-    public IEnumerator TestDynamicLoadingWithEnumeratorPasses()
-    {
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
-        yield return null;
     }
 }

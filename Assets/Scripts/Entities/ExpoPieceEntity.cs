@@ -7,10 +7,9 @@ public class ExpoPieceEntity : MonoBehaviour
     private float distance;
     private string entityName;
 
-    public ExpoPieceEntity(string entityName,GameObject pieceGameObject,float distance, GameObject placeHolder)
+    public ExpoPieceEntity(string entityName,GameObject pieceGameObject, GameObject placeHolder)
     {
         this.entityName=entityName;
-        this.distance= distance;
         this.pieceGameObject = pieceGameObject;
         this.placeHolder = placeHolder;
     }

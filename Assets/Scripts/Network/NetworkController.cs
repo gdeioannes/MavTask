@@ -6,8 +6,11 @@ using System;
 
 public class NetworkController : MonoBehaviour
 {
-    private TextAsset asset;
+    private TextAsset epoDataModelTextAsset;
     public string expoID = "Expo_ID_0001";
+
+    public TextAsset EpoDataModelTextAsset { get => epoDataModelTextAsset; set => epoDataModelTextAsset = value; }
+
     void Start()
     {
         requestDataFromServer(expoID);
@@ -17,8 +20,9 @@ public class NetworkController : MonoBehaviour
     public void requestDataFromServer(string id)
     {
         try { 
-            asset = (TextAsset)Resources.Load(id + "/ExpoDataModel");
-            parseExpoSpaceData(asset.ToString());
+            epoDataModelTextAsset = (TextAsset)Resources.Load(id + "/ExpoDataModel");
+            Debug.Log(epoDataModelTextAsset.ToString());
+            parseExpoSpaceData(epoDataModelTextAsset.ToString());
         }catch(Exception e)
         {
             Debug.LogError(e);
@@ -44,5 +48,10 @@ public class NetworkController : MonoBehaviour
     {
         LoadController.instance.EceneStructureModel = expoStructureModel;
     }
+
+    public int returnNum(int num)
+    {
+        return num;
+    } 
 
 }

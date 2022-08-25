@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 4197028091
+CRC: 3782225760
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -22,4 +22,25 @@ AssetBundleManifest:
       Dependencies: {}
     Info_6:
       Name: venus_milo_7
+      Dependencies: {}
+    Info_7:
+      Name: venus_milo_low_1
+      Dependencies: {}
+    Info_8:
+      Name: venus_milo_low_2
+      Dependencies: {}
+    Info_9:
+      Name: venus_milo_low_3
+      Dependencies: {}
+    Info_10:
+      Name: venus_milo_low_4
+      Dependencies: {}
+    Info_11:
+      Name: venus_milo_low_5
+      Dependencies: {}
+    Info_12:
+      Name: venus_milo_low_6
+      Dependencies: {}
+    Info_13:
+      Name: venus_milo_low_7
       Dependencies: {}

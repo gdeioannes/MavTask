@@ -5,12 +5,11 @@ public class LoadController : MonoBehaviour
 {
     
     public static LoadController instance;
-    int loadCount=0;
     private ExpoDataModel expoDataModel;
     public GameObject expoObjectsContainer;
     public GameObject player;
 
-    public List<ExpoPieceEntity> expoEntityList= new List<ExpoPieceEntity>();
+    public List<ExpoPieceEntity> loadExpoEntityList= new List<ExpoPieceEntity>();
 
     //Number defines how many loaded objects at the same time
     private int concurrentLoad = 4;
@@ -48,53 +47,59 @@ public class LoadController : MonoBehaviour
             newObj.transform.position = position;
             newObj.transform.rotation= rotation;
             newObj.transform.localScale = scale;
-            float distanceWithPlayer = Vector3.Distance(newObj.transform.position,player.transform.position);
-            Debug.Log("Distnace" + distanceWithPlayer);
+           
 
             //Create Expo entity and added to the list
-            expoEntityList.Add(new ExpoPieceEntity(expoPiece.assetBundleName,newObj, distanceWithPlayer, placeHolder));
-            Debug.Log("Added ExpoEntity Num:"+ expoEntityList.Count);
+            loadExpoEntityList.Add(new ExpoPieceEntity(expoPiece.assetBundleName,newObj, placeHolder));
+            
         }
 
         sortObjectByDistance();
+        startLoadingObjects();
     }
 
     void sortObjectByDistance()
     {
-        expoEntityList.Sort((p1, p2) => p1.Distance.CompareTo(p2.Distance));
-        foreach (ExpoPieceEntity expoEntity in expoEntityList)
+        foreach (ExpoPieceEntity expoEntity in loadExpoEntityList) {
+            expoEntity.Distance= Vector3.Distance(expoEntity.PieceGameObject.transform.position, player.transform.position);
+        }
+
+        loadExpoEntityList.Sort((p1, p2) => p1.Distance.CompareTo(p2.Distance));
+        foreach (ExpoPieceEntity expoEntity in loadExpoEntityList)
         {
             Debug.Log(expoEntity.EntityName);
         }
-        startLoadingObjects();
     }
 
     void startLoadingObjects()
     {
-        while(loadCount<concurrentLoad)
+        
+        while (concurrentLoad>=0)
         {
-            callAPI(loadCount);
-            loadCount++;
+            callAPI();
+            concurrentLoad--;
         }
 
+    }
+
+    private void callAPI()
+    {
+        API.instance.GetBundleObject(loadExpoEntityList[0], OnContentLoaded, expoObjectsContainer.transform);
+        loadExpoEntityList.RemoveAt(0);
     }
 
     void OnContentLoaded(ExpoPieceEntity content)
     {
         //do something cool here
         content.PlaceHolder.transform.Find("Cube").GetComponent<Animator>().Play("EndLoading");
-        Debug.Log("Loaded: " + content.EntityName);
+        Debug.Log("Loaded: " + content.EntityName + "Left:"+ loadExpoEntityList.Count);
 
-        if(loadCount< expoEntityList.Count)
+        if (loadExpoEntityList.Count>=0)
         {
-            callAPI(loadCount);
-            loadCount++;
+            sortObjectByDistance();
+            callAPI();
+            
         }
-    }
-
-    private void callAPI(int num)
-    {
-        API.instance.GetBundleObject(expoEntityList[num], OnContentLoaded, expoObjectsContainer.transform);
     }
 
     private GameObject createPlaceHolder(Vector3 position, Quaternion rotation, Vector3 scale)
